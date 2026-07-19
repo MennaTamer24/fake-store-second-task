@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fake_store_second_task/core/errors/failures.dart';
-import 'package:fake_store_second_task/core/netwotk/network_check.dart';
+import 'package:fake_store_second_task/core/services/netwotk/network_check.dart';
 import 'package:fake_store_second_task/features/products/data/repo/locale_data_source.dart';
 import 'package:fake_store_second_task/features/products/data/repo/remote_data_source.dart';
 import 'package:fake_store_second_task/features/products/data/models/product_models.dart';

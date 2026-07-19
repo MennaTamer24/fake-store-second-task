@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:fake_store_second_task/core/errors/failures.dart';
-import 'package:fake_store_second_task/core/netwotk/api_services.dart';
+import 'package:fake_store_second_task/core/services/netwotk/api_services.dart';
 import 'package:fake_store_second_task/core/utils/end_points.dart';
 import 'package:fake_store_second_task/features/products/data/models/product_models.dart';
 

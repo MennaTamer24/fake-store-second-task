@@ -1,20 +1,26 @@
 import 'package:dartz/dartz.dart';
 import 'package:fake_store_second_task/core/errors/failures.dart';
+import 'package:fake_store_second_task/core/services/cache/cache_services.dart';
 import 'package:fake_store_second_task/features/products/data/models/product_models.dart';
-import 'package:hive/hive.dart';
 
 abstract class LocaleDataSource {
-  Either<Failure, List<ProductModel>> getCachedProducts();
+  Future<Either<Failure, List<ProductModel>>> getCachedProducts();
   Future<void> cacheProducts(List<ProductModel> products);
 }
 
 class LocaleDataSourceImpl implements LocaleDataSource {
-  final Box box;
-  LocaleDataSourceImpl(this.box);
+  final CacheServices storage;
+
+  LocaleDataSourceImpl(this.storage);
+
   @override
-  Either<Failure, List<ProductModel>> getCachedProducts() {
+  Future<Either<Failure, List<ProductModel>>> getCachedProducts() async {
+    final box = await storage.getBox('products');
+
     final data = List<Map<String, dynamic>>.from(
-      box.get('products', defaultValue: []),
+      box.get(
+        'products', //, defaultValue: []
+      ),
     );
 
     if (data.isEmpty) {
@@ -30,6 +36,8 @@ class LocaleDataSourceImpl implements LocaleDataSource {
 
   @override
   Future<void> cacheProducts(List<ProductModel> products) async {
+    final box = await storage.getBox('products');
+
     await box.clear();
     await box.put('products', products.map((e) => e.toJson()).toList());
   }
